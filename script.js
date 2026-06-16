@@ -10,23 +10,27 @@ const response = await fetch(csvUrl);
 
 const csv = await response.text();
 
-const filas = csv.split("\n").slice(1);
+const filas = csv
+.split("\n")
+.slice(1)
+.filter(fila => fila.trim() !== "");
 
-const tbody = document.querySelector("#tablaFibra tbody");
+const tbody =
+document.querySelector("#tablaFibra tbody");
 
 tbody.innerHTML = "";
 
-let disponibles=0;
-let asignados=0;
-let danados=0;
+let disponibles = 0;
+let asignados = 0;
+let danados = 0;
 
-const sitios={};
+const sitios = {};
 
 filas.forEach(fila=>{
 
-const columnas=fila.split(",");
+const columnas = fila.split(",");
 
-if(columnas.length<10) return;
+if(columnas.length < 10) return;
 
 const [
 id,
@@ -39,17 +43,16 @@ ticket,
 fecha,
 responsable,
 obs
-]=columnas;
+] = columnas;
 
 tbody.innerHTML += `
+
 <tr>
 <td>${id}</td>
 <td>${tipo}</td>
 <td>${largo}</td>
 <td>${conector}</td>
-<td class="${estado}">
-${estado}
-</td>
+<td class="${estado.trim()}">${estado}</td>
 <td>${sitio}</td>
 <td>${ticket}</td>
 <td>${fecha}</td>
@@ -58,52 +61,120 @@ ${estado}
 </tr>
 `;
 
-if(estado==="Disponible") disponibles++;
-if(estado==="Asignado") asignados++;
-if(estado==="Dañado") danados++;
+const estadoLimpio =
+estado.trim().toLowerCase();
 
-sitios[sitio]=(sitios[sitio]||0)+1;
+if(estadoLimpio === "disponible") disponibles++;
+if(estadoLimpio === "asignado") asignados++;
+if(estadoLimpio === "dañado") danados++;
+
+sitios[sitio] =
+(sitios[sitio] || 0) + 1;
 
 });
 
-document.getElementById("total").innerText=filas.length;
-document.getElementById("disponibles").innerText=disponibles;
-document.getElementById("asignados").innerText=asignados;
-document.getElementById("danados").innerText=danados;
+document.getElementById("total").innerText =
+filas.length;
 
-crearGraficos(disponibles,asignados,danados,sitios);
+document.getElementById("disponibles").innerText =
+disponibles;
+
+document.getElementById("asignados").innerText =
+asignados;
+
+document.getElementById("danados").innerText =
+danados;
+
+const salud =
+filas.length > 0
+? Math.round((disponibles / filas.length) * 100)
+: 0;
+
+document.getElementById("salud").innerText =
+salud + "%";
+
+crearGraficos(
+disponibles,
+asignados,
+danados,
+sitios
+);
 
 }
 
-function crearGraficos(disponibles,asignados,danados,sitios){
+function crearGraficos(
+disponibles,
+asignados,
+danados,
+sitios
+){
 
 if(estadoChart) estadoChart.destroy();
 if(sitioChart) sitioChart.destroy();
 
-estadoChart=new Chart(
+estadoChart = new Chart(
 document.getElementById("estadoChart"),
 {
 type:"doughnut",
 data:{
-labels:["Disponible","Asignado","Dañado"],
+labels:[
+"Disponible",
+"Asignado",
+"Dañado"
+],
 datasets:[{
-data:[disponibles,asignados,danados]
+data:[
+disponibles,
+asignados,
+danados
+],
+backgroundColor:[
+"#22c55e",
+"#f59e0b",
+"#ef4444"
+],
+borderWidth:2
 }]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+plugins:{
+title:{
+display:true,
+text:"Estado del Inventario"
+},
+legend:{
+position:"bottom"
+}
+}
 }
 });
 
-sitioChart=new Chart(
+sitioChart = new Chart(
 document.getElementById("sitioChart"),
 {
 type:"bar",
 data:{
 labels:Object.keys(sitios),
 datasets:[{
-label:"Cantidad",
-data:Object.values(sitios)
+label:"Cantidad de Cables",
+data:Object.values(sitios),
+backgroundColor:"#0ea5e9",
+borderRadius:10
 }]
+},
+options:{
+responsive:true,
+plugins:{
+title:{
+display:true,
+text:"Inventario por Sitio"
+}
+}
 }
 });
+
 }
 
 function filtrarTabla(){
@@ -114,7 +185,9 @@ document.getElementById("buscar")
 .toLowerCase();
 
 const filas =
-document.querySelectorAll("#tablaFibra tbody tr");
+document.querySelectorAll(
+"#tablaFibra tbody tr"
+);
 
 filas.forEach(fila=>{
 
@@ -127,25 +200,26 @@ texto.includes(filtro)
 : "none";
 
 });
-}
 
-cargarDatos();
+}
 
 setInterval(()=>{
 
-const ahora=new Date();
+const ahora = new Date();
 
-document.getElementById("reloj").innerHTML=
-ahora.toLocaleString();
+document.getElementById("reloj")
+.innerHTML =
+ahora.toLocaleString("es-CL");
 
 },1000);
 
-const salud =
-Math.round(
-(disponibles / filas.length) * 100
-);
+setInterval(()=>{
 
-document.getElementById("salud")
-.innerText =
+cargarDatos();
+
+},60000);
+
+cargarDatos();
+
 salud + "%";
 cargarDatos();
