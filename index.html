@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard Fibra Óptica | LuisDev</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+<header>
+    <h1>🌐 Dashboard Inventario Fibra Óptica</h1>
+
+    <button onclick="cargarDatos()">
+        🔄 Actualizar
+    </button>
+</header>
+
+<section class="cards">
+
+    <div class="card">
+        <h3>Total Cables</h3>
+        <span id="total">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Disponibles</h3>
+        <span id="disponibles">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Asignados</h3>
+        <span id="asignados">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Dañados</h3>
+        <span id="danados">0</span>
+    </div>
+
+</section>
+
+<section class="graficos">
+
+    <canvas id="estadoChart"></canvas>
+
+    <canvas id="sitioChart"></canvas>
+
+</section>
+
+<section class="tabla">
+
+    <input
+        type="text"
+        id="buscar"
+        placeholder="Buscar..."
+        onkeyup="filtrarTabla()"
+    >
+
+    <table id="tablaFibra">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Largo</th>
+                <th>Conector</th>
+                <th>Estado</th>
+                <th>Sitio</th>
+                <th>Ticket</th>
+                <th>Fecha</th>
+                <th>Responsable</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+
+    </table>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
