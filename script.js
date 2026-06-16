@@ -47,7 +47,9 @@ tbody.innerHTML += `
 <td>${tipo}</td>
 <td>${largo}</td>
 <td>${conector}</td>
-<td>${estado}</td>
+<td class="${estado}">
+${estado}
+</td>
 <td>${sitio}</td>
 <td>${ticket}</td>
 <td>${fecha}</td>
@@ -127,4 +129,23 @@ texto.includes(filtro)
 });
 }
 
+cargarDatos();
+
+setInterval(()=>{
+
+const ahora=new Date();
+
+document.getElementById("reloj").innerHTML=
+ahora.toLocaleString();
+
+},1000);
+
+const salud =
+Math.round(
+(disponibles / filas.length) * 100
+);
+
+document.getElementById("salud")
+.innerText =
+salud + "%";
 cargarDatos();
