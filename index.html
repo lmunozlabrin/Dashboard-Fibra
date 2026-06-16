@@ -4,95 +4,117 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard Fibra Óptica | LuisDev</title>
+<title>Dashboard Fibra Óptica | LuisDev Solutions</title>
 
 <link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
+
 <body>
 
 <header>
-    <h1>🌐 Dashboard Inventario Fibra Óptica</h1>
 
-    <div id="reloj"></div>
+<div class="header-left">
 
-    <button onclick="cargarDatos()">
-        🔄 Actualizar
-    </button>
+<h1>🌐 Dashboard Inventario Fibra Óptica</h1>
+
+<p class="subtitulo">
+Monitoreo y control de cables de fibra óptica en tiempo real
+</p>
+
+<div id="reloj"></div>
+
+</div>
+
+<button onclick="cargarDatos()">
+🔄 Actualizar
+</button>
+
 </header>
 
 <section class="cards">
 
-    <div class="card">
+<div class="card">
 <h3>Salud Inventario</h3>
-<span id="salud">100%</span>
+<span id="salud">0%</span>
 </div>
 
-    <div class="card">
-        <h3>Total Cables</h3>
-        <span id="total">0</span>
-    </div>
+<div class="card">
+<h3>Total Cables</h3>
+<span id="total">0</span>
+</div>
 
-    <div class="card">
-        <h3>Disponibles</h3>
-        <span id="disponibles">0</span>
-    </div>
+<div class="card">
+<h3>Disponibles</h3>
+<span id="disponibles">0</span>
+</div>
 
-    <div class="card">
-        <h3>Asignados</h3>
-        <span id="asignados">0</span>
-    </div>
+<div class="card">
+<h3>Asignados</h3>
+<span id="asignados">0</span>
+</div>
 
-    <div class="card">
-        <h3>Dañados</h3>
-        <span id="danados">0</span>
-    </div>
+<div class="card">
+<h3>Dañados</h3>
+<span id="danados">0</span>
+</div>
 
 </section>
 
 <section class="graficos">
 
-    <canvas id="estadoChart"></canvas>
+<div class="grafico-card">
+<canvas id="estadoChart"></canvas>
+</div>
 
-    <canvas id="sitioChart"></canvas>
+<div class="grafico-card">
+<canvas id="sitioChart"></canvas>
+</div>
 
 </section>
 
 <section class="tabla">
 
-    <input
-        type="text"
-        id="buscar"
-        placeholder="Buscar..."
-        onkeyup="filtrarTabla()"
-    >
+<input
+type="text"
+id="buscar"
+placeholder="🔎 Buscar por ID, Ticket, Responsable, Sitio..."
+onkeyup="filtrarTabla()"
+>
 
-    <table id="tablaFibra">
+<table id="tablaFibra">
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tipo</th>
-                <th>Largo</th>
-                <th>Conector</th>
-                <th>Estado</th>
-                <th>Sitio</th>
-                <th>Ticket</th>
-                <th>Fecha</th>
-                <th>Responsable</th>
-                <th>Observaciones</th>
-            </tr>
-        </thead>
+<thead>
+<tr>
+<th>ID</th>
+<th>Tipo Fibra</th>
+<th>Largo</th>
+<th>Conector</th>
+<th>Estado</th>
+<th>Sitio</th>
+<th>Ticket</th>
+<th>Fecha</th>
+<th>Responsable</th>
+<th>Observaciones</th>
+</tr>
+</thead>
 
-        <tbody></tbody>
+<tbody></tbody>
 
-    </table>
+</table>
 
 </section>
 
+<footer>
+Dashboard desarrollado por Luis Muñoz © 2026
+</footer>
+
 <script src="script.js"></script>
+
+</body>
+</html>
 
 </body>
 </html>
